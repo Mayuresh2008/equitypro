@@ -8,14 +8,14 @@ window.addEventListener('error', (e) => {
   const loading = document.getElementById('loading')
   if (loading) {
     loading.className = 'error'
-    loading.innerHTML = 'JS Error: ' + (e.message || e) + ' at ' + (e.filename || '?') + ':' + (e.lineno || '?') + '\nStack: ' + (e.error?.stack || 'no stack')
+    loading.innerHTML = 'JS Error: ' + (e.message || e) + ' at ' + (e.filename || '?') + ':' + (e.lineno || '?')
   }
 })
 window.addEventListener('unhandledrejection', (e) => {
   const loading = document.getElementById('loading')
   if (loading) {
     loading.className = 'error'
-    loading.innerHTML = 'Unhandled: ' + (e.reason?.message || e.reason) + '\nStack: ' + (e.reason?.stack || 'no stack')
+    loading.innerHTML = 'Unhandled: ' + (e.reason?.message || e.reason)
   }
 })
 
@@ -26,36 +26,21 @@ class ErrorBoundary extends React.Component {
     const loading = document.getElementById('loading')
     if (loading) {
       loading.className = 'error'
-      loading.innerHTML = 'React Error: ' + err.message + '\nComponent: ' + (info?.componentStack?.split('\n')[1] || '?') + '\nStack: ' + err.stack
+      loading.innerHTML = 'React Error: ' + err.message + '\nComponent: ' + (info?.componentStack?.split('\n')[1]?.trim() || '?')
     }
   }
   render() {
-    if (this.state.err) {
-      return <div style={{padding:20,color:'#ef4444'}}>Boundary caught: {String(this.state.err)}</div>
-    }
+    if (this.state.err) return <div style={{padding:20,color:'#ef4444'}}>Error: {String(this.state.err)}</div>
     return this.props.children
   }
 }
 
-try {
-  console.log('[main] Starting render')
-  ReactDOM.createRoot(document.getElementById('root')).render(
-    <ErrorBoundary>
-      <React.StrictMode>
-        <ThemeProvider>
-          <App />
-        </ThemeProvider>
-      </React.StrictMode>
-    </ErrorBoundary>
-  )
-  console.log('[main] Rendered successfully')
-  const loading = document.getElementById('loading')
-  if (loading) loading.remove()
-} catch (e) {
-  console.error('[main] Caught error:', e)
-  const loading = document.getElementById('loading')
-  if (loading) {
-    loading.className = 'error'
-    loading.innerHTML = 'Caught: ' + e.message + '\nStack: ' + e.stack
-  }
-}
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <ErrorBoundary>
+    <React.StrictMode>
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
+    </React.StrictMode>
+  </ErrorBoundary>
+)

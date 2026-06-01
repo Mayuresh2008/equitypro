@@ -42,7 +42,7 @@ By: ________________________`,
 
 This Shareholder Agreement is made on {{date}} between {{company_name}} and {{shareholder_name}}.
 
-The Shareholder agrees to purchase {{shares}} shares at ${{price_per_share}} per share for a total consideration of ${{total_investment}}.
+The Shareholder agrees to purchase {{shares}} shares at \${{price_per_share}} per share for a total consideration of \${{total_investment}}.
 
 Share Class: {{share_class}}
 Rights: {{rights}}`,
@@ -55,7 +55,7 @@ Date: {{date}}
 Company: {{company_name}}
 Employee: {{employee_name}}
 Total Options: {{options}} shares
-Exercise Price: ${{exercise_price}}/share
+Exercise Price: \${{exercise_price}}/share
 Vesting: {{vesting_schedule}}
 Expiry: {{expiry_date}}`,
   },
