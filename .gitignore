@@ -4,3 +4,6 @@ dist/
 *.local
 vite.log
 vite.err
+preview.log
+serve.log
+build.log
