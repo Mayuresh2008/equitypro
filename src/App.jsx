@@ -21,8 +21,6 @@ const NAV = [
   { id: 'reports', label: 'Reports', icon: '📈' },
 ]
 
-const start = window.performance?.getEntriesByType?.('navigation')?.[0]
-
 export default function App() {
   const [page, setPage] = useState('dashboard')
   const { theme, toggle } = useTheme()
