@@ -1,5 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import App from './App'
+import { ThemeProvider } from './context/ThemeContext'
+import './index.css'
 
 window.addEventListener('error', (e) => {
   const loading = document.getElementById('loading')
@@ -16,13 +19,34 @@ window.addEventListener('unhandledrejection', (e) => {
   }
 })
 
+class ErrorBoundary extends React.Component {
+  constructor(props) { super(props); this.state = { err: null } }
+  static getDerivedStateFromError(err) { return { err } }
+  componentDidCatch(err, info) {
+    const loading = document.getElementById('loading')
+    if (loading) {
+      loading.className = 'error'
+      loading.innerHTML = 'React Error: ' + err.message + '\nComponent: ' + (info?.componentStack?.split('\n')[1] || '?') + '\nStack: ' + err.stack
+    }
+  }
+  render() {
+    if (this.state.err) {
+      return <div style={{padding:20,color:'#ef4444'}}>Boundary caught: {String(this.state.err)}</div>
+    }
+    return this.props.children
+  }
+}
+
 try {
   console.log('[main] Starting render')
   ReactDOM.createRoot(document.getElementById('root')).render(
-    <div style={{padding: 20}}>
-      <h1>Hello from React!</h1>
-      <p>If you see this, React works. The full app is broken somewhere.</p>
-    </div>
+    <ErrorBoundary>
+      <React.StrictMode>
+        <ThemeProvider>
+          <App />
+        </ThemeProvider>
+      </React.StrictMode>
+    </ErrorBoundary>
   )
   console.log('[main] Rendered successfully')
   const loading = document.getElementById('loading')
