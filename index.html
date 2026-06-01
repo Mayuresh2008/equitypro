@@ -8,7 +8,7 @@
     <style>html,body{margin:0;background:#1a1d23;color:#fff;font-family:sans-serif}#loading{padding:20px;font-size:14px}#loading.error{color:#ef4444}</style>
   </head>
   <body>
-    <div id="root"><div id="loading">Loading EquityPro…</div></div>
+    <div id="root"><div id="loading">Loading EquityPro...</div></div>
     <script type="module" src="/src/main.jsx"></script>
     <script>setTimeout(()=>{const l=document.getElementById('loading');if(l&&l.textContent.includes('Loading')){l.className='error';l.textContent='JavaScript failed to load. Check console for errors.';}},5000);</script>
   </body>
